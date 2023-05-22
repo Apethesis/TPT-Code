@@ -1,4 +1,4 @@
-_G.shitsweird = false
+_G.commod = {shitsweird = false, shitscrazy = false, maxrantemp = 9999}
 local chaos = false
 local truechaos = false
 local changable = {
@@ -20,7 +20,7 @@ local changable = {
     [16] = "Meltable"
 }
 evt.register(evt.tick,function()
-    if _G.shitsweird and chaos ~= true then
+    if _G.commod.shitsweird and chaos ~= true then
         for k,v in pairs(elem) do
             if type(v) ~= "function" and k:sub(1,7) == "DEFAULT" and elements.property(v,"Name") ~= "DMND" then
                 local flam = elements.property(v,"Flammable")
@@ -42,7 +42,7 @@ evt.register(evt.tick,function()
         end
         print("finished regular chaos")
         chaos = true
-    elseif _G.shitsweird == false and chaos ~= false then
+    elseif _G.commod.shitsweird == false and chaos ~= false then
         for k,v in pairs(elem) do
             if type(v) ~= "function" and k:sub(1,7) == "DEFAULT" and elements.property(v,"Name") ~= "DMND" then
                 elements.loadDefault(v)
@@ -50,7 +50,7 @@ evt.register(evt.tick,function()
         end
         chaos = false
         print("disabled regular chaos")
-    elseif _G.shitscrazy and truechaos ~= true then
+    elseif _G.commod.shitscrazy and truechaos ~= true then
         for k,v in pairs(elem) do
             if type(v) ~= "function" and k:sub(1,7) == "DEFAULT" and elements.property(v,"Name") ~= "DMND" then
                 local flam = elements.property(v,"Flammable")
@@ -75,7 +75,7 @@ evt.register(evt.tick,function()
         for k,v in pairs(elem) do
             if type(v) ~= "function" and k:sub(1,7) == "DEFAULT" and elements.property(v,"Name") ~= "DMND" then
                 for k1,v1 in ipairs(changable) do
-                    if v1 == "Color" or v1 == "Temperature" then
+                    if v1 == "Color" then
                         elements.property(v,v1,math.random(1,16777215))
                     elseif v1 == "AirLoss" or v1 == "Collision" or v1 == "Advection" or v1 == "AirDrag" or v1 == "HotAir" or v1 == "Loss" then
                         elements.property(v,v1,math.random(0,255)/255)
@@ -89,6 +89,8 @@ evt.register(evt.tick,function()
                         elements.property(v,v1,math.random(0,2))
                     elseif v1 == "State" then
                         elements.property(v,v1,math.random(0,4))
+                    elseif v1 == "Temperature" then
+                        elements.property(v,v1,math.random(1,_G.commod.maxrantemp))
                     end
                 end
             end
@@ -96,7 +98,7 @@ evt.register(evt.tick,function()
         print("finished randomizer")
         truechaos = true
         print("finished crazying shit up (true chaos enabled)")
-    elseif _G.shitscrazy == false and truechaos ~= false then
+    elseif _G.commod.shitscrazy == false and truechaos ~= false then
         for k,v in pairs(elem) do
             if type(v) ~= "function" and k:sub(1,7) == "DEFAULT" then
                 elements.loadDefault(v)
