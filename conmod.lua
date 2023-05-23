@@ -127,6 +127,8 @@ for k,v in pairs(elem) do
         end)
     end
 end
+elem.property(elements.DEFAULT_PT_SOAP,"Flammable",10000)
+elem.property(elements.BROKEN_PT_BSOA,"Flammable",2007483647)
 local el1 = elements.allocate("BROKEN","MARR")
 elem.element(el1,elements.element(elements.DEFAULT_PT_DMND))
 elem.property(el1,"Name","MARR")
@@ -155,5 +157,14 @@ elem.property(el2,"Update",function(i)
         sim.partProperty(i,"life",cd1)
     else
         sim.partProperty(i,"life",sim.partProperty(i,"life") - 1)
+    end
+end)
+-- BNON
+elem.property(elements.BROKEN_PT_BNON,"Description","Broken NONE, invisible and destroys anything that touches it. (LAGGY)")
+elem.property(elements.BROKEN_PT_BNON,"Update",function(i,x,y)
+    for k,v in ipairs(simulation.partNeighbors(x,y,2)) do
+        if sim.partProperty(v,"type") ~= elements.BROKEN_PT_BNON then
+            sim.partKill(v)
+        end
     end
 end)
