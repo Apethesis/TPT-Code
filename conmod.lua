@@ -159,6 +159,7 @@ elem.property(el2,"Update",function(i)
         sim.partProperty(i,"life",sim.partProperty(i,"life") - 1)
     end
 end)
+local bflt = elements.allocat
 -- BNON
 elem.property(elements.BROKEN_PT_BNON,"Description","Broken NONE, invisible and destroys anything that touches it. (LAGGY)")
 elem.property(elements.BROKEN_PT_BNON,"Update",function(i,x,y)
